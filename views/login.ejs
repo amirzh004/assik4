@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/loginStyle.css">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/search">SEARCH BY VIN</a></li>
+            <li><a href="/gallery">GALLERY</a></li>
+                <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+        </ul>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Login</h1>
+
+            <% if (error) { %>
+                <p><%= error %></p>
+            <% } %>
+
+            <form action="/login" method="post">
+                <div style="width: 100%; text-align: left; align-items: start; margin-bottom: 5px;">
+                    <label for="email">Email:</label>
+                </div>
+                <input type="text" id="email" name="email" required>
+                <div style="width: 100%; text-align: left; align-items: start; margin-bottom: 5px;">
+                    <label for="password">Password:</label>
+                </div>
+                <input type="password" id="password" name="password" required>
+                <p>Do not have an account? <a href="/registration">Register</a></p>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <h2 style="color: white;">Mukhidinov Amirzhan SE-2207</h2>
+    </footer>
+</body>
+
+</html>

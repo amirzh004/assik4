@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/style.css">
+    <title>Home Page</title>
+</head>
+
+<body>
+  <header>
+    <ul>
+      <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+      <li><a href="/">HOME</a></li>
+      <li><a href="/search">SEARCH BY VIN</a></li>
+      <li><a href="/gallery">GALLERY</a></li>
+      <% if (userIsLoggedIn) { %>
+        <li style="margin-left: auto; margin-right: 5px;"><a href="/profile"><%= userIsLoggedIn.email %></a></li>
+      <% } else { %>
+        <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+      <% } %>
+    </ul>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="hero-image">
+          <div class="hero-text">
+            <img src="/images/logo.png" height="120px" alt="">
+            <p style="margin-top: 20px; line-height: 30px;">
+              Welcome to Automotive, your go-to destination for car <br> enthusiasts! Decode VINs effortlessly and explore <br> our captivating car image gallery. Discover hidden <br> details and stunning visuals, all in one place at <br> Automotive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <% for (let i = 0; i < usersWithImages.length; i += 2) { %>
+      <section>
+          <h1 style="padding-top: 55px;">USER GALLERIES</h1>
+          <% for (let j = i; j < Math.min(i + 2, usersWithImages.length); j++) { %>
+              <% const userWithImages = usersWithImages[j]; %>
+              <div>
+                  <div class="round-img-name" style="padding: 0 15px;">
+                      <div class="round-div">
+                          <img class="round-img" src="/images/user.png" alt="Your Image">
+                      </div>
+                      <p><%= userWithImages.user.username %></p>
+                  </div>
+                  <div class="image-container">
+                      <% userWithImages.images.forEach(image => { %>
+                        <div class="image-of-container">
+                            <img src="<%= image.photoURL %>" class="image-of-container" alt="">
+                            <% if (userIsLoggedIn) { %>
+                              <form id="saveForm" action="/save-photo" method="POST">
+                                <input type="hidden" name="photoURL" id="photoURL" value="<%= image.photoURL %>">
+                                <button style="height: 0px; padding: 0; margin: 0;" type="submit">
+                                    <div class="save">
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" fill="white" viewBox="0 0 50 50">
+                                            <path d="M 37 48 C 36.824219 48 36.652344 47.953125 36.496094 47.863281 L 25 41.15625 L 13.503906 47.863281 C 13.195313 48.042969 12.8125 48.046875 12.503906 47.867188 C 12.191406 47.6875 12 47.359375 12 47 L 12 3 C 12 2.449219 12.449219 2 13 2 L 37 2 C 37.554688 2 38 2.449219 38 3 L 38 47 C 38 47.359375 37.808594 47.6875 37.496094 47.867188 C 37.34375 47.957031 37.171875 48 37 48 Z"></path>
+                                        </svg>
+                                    </div>
+                                </button>
+                              </form>
+                            
+                            <script>
+                                function savePhoto(photoURL) {
+                                    // Set the value of the hidden input field to the photoURL
+                                    document.getElementById('photoURL').value = photoURL;
+                            
+                                    // Submit the form
+                                    document.getElementById('saveForm').submit();
+                                }
+                            </script>
+                            
+                            <% } %>
+                        </div>
+                      <% }); %>
+                  </div>
+              </div>
+          <% } %>
+      </section>
+  <% } %>
+  
+  </main>
+  
+  <footer>
+    <h2 style="color: white;">Mukhidinov Amirzhan SE-2207</h2>
+  </footer>
+</body>
+</html>

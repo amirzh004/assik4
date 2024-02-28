@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/styleWithoutScroll.css">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/search">SEARCH BY VIN</a></li>
+            <li><a href="/gallery">GALLERY</a></li>
+            <% if (userIsLoggedIn) { %>
+                <li style="margin-left: auto; margin-right: 5px;"><a href="/profile"><%= userIsLoggedIn.email %></a></li>
+            <% } else { %>
+                <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+            <% } %>
+        </ul>
+    </header>
+
+    <main style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0;">
+        <div class="centered" style="position: relative; width: 50%; border-radius: 0 0 25px 25px; background-color: rgb(49, 49, 49); padding: 59px 0 25px 0; height: 100%;">
+            <div style="position: absolute; top: 80px; left: 20px; width: 30px; height: 30px; cursor: pointer;" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" xml:space="preserve" width="30px" height="30px" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 298 511.93">
+                    <path fill-rule="nonzero" d="M285.77 441c16.24 16.17 16.32 42.46.15 58.7-16.16 16.24-42.45 16.32-58.69.16l-215-214.47c-16.24-16.16-16.32-42.45-.15-58.69L227.23 12.08c16.24-16.17 42.53-16.09 58.69.15 16.17 16.24 16.09 42.54-.15 58.7l-185.5 185.04L285.77 441z"/>
+                </svg>
+            </div>
+            <h1>Edit Profile</h1>
+            <form action="/editprofile/<%= userIsLoggedIn._id %>" method="post" style="flex-direction: column; width: 80%;">
+                <script>
+                    function goBack() {
+                        window.history.back();
+                        }
+                </script>
+                <label for="username" style="text-align: start; margin-right: auto; font-weight: bold; margin-bottom: 5px;">Username:</label>
+                <input type="text" id="username" name="username" style="margin-bottom: 20px; width: 100%;" value="<%= userIsLoggedIn.username %>">
+
+                <label for="email" style="text-align: start; margin-right: auto; font-weight: bold; margin-bottom: 5px;">Email:</label>
+                <input type="email" id="email" name="email" style="margin-bottom: 20px; width: 100%;" value="<%= userIsLoggedIn.email %>">
+
+                <label for="password" style="text-align: start; margin-right: auto; font-weight: bold; margin-bottom: 5px;">Password:</label>
+                <input type="password" id="password" name="password" style="margin-bottom: 20px; width: 100%;" value="<%= userIsLoggedIn.password %>">
+
+                <button type="submit" style="width: 100%; margin: 0;">
+                    Save
+                </button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

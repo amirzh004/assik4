@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/styleWithoutScroll.css">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/search">SEARCH BY VIN</a></li>
+            <li><a href="/gallery">GALLERY</a></li>
+            <% if (userIsLoggedIn) { %>
+                <li style="margin-left: auto; margin-right: 5px;"><a href="/profile"><%= userIsLoggedIn.email %></a></li>
+            <% } else { %>
+                <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+            <% } %>
+        </ul>
+    </header>
+
+    <main>
+        <div class="centered">
+            <h1>SEARCH BY VIN</h1>
+            <p style="width: 70%;">Unlock the secrets of any vehicle's history with our VIN decoder tool. Our VIN decoder provides a comprehensive breakdown of a vehicle's unique identification number, revealing key details such as its make, model, year, engine type, and more.To utilize the VIN decoder on our website, simply enter the vehicle's VIN (Vehicle Identification Number) into the designated input field and click the "Decode" button. </p>
+            <form id="vinForm" action="/search" method="post"> <!-- Update the form action to /search -->
+                <input type="text" id="searchInput" name="vin" placeholder="Enter your VIN">
+                <button type="submit">Decode</button>
+            </form>
+            
+            <!-- Display decoded data if available -->
+            <% if (typeof decodedData !== 'undefined' && decodedData !== null) { %>
+                <h2>Decoded Vehicle Information</h2>
+                <pre><%= JSON.stringify(decodedData, null, 2) %></pre>
+            <% } %>
+            
+            <!-- Display error message if present -->
+            <% if (error) { %>
+                <p><%= error %></p>
+            <% } %>
+        </div>
+    </main>
+
+</body>
+</html>

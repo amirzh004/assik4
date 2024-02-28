@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/loginStyle.css">
+    <title>Add User</title>
+    
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/search">SEARCH BY VIN</a></li>
+            <li><a href="/gallery">GALLERY</a></li>
+            <% if (userIsLoggedIn) { %>
+                <li style="margin-left: auto; margin-right: 5px;"><a href="/profile"><%= userIsLoggedIn.email %></a></li>
+            <% } else { %>
+                <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+            <% } %>
+        </ul>
+    </header>
+    <div class="container">
+        <h1>Add User</h1>
+
+        <form action="/admin/add" method="post">
+            <div style="width: 100%; text-align: left; align-items: start; margin-bottom: 5px;">
+                <label for="email">Email:</label>
+            </div>
+            <input type="text" id="email" name="email" required>
+
+            <div style="width: 100%; text-align: left; align-items: start; margin-bottom: 5px;">
+                <label for="username">Username:</label>
+            </div>
+            <input type="text" id="username" name="username" required>
+
+            <div style="width: 100%; text-align: left; align-items: start; margin-bottom: 5px;">
+                <label for="password">Password:</label>
+            </div>
+            <input type="password" id="password" name="password" required>
+
+            <div style="display: flex; width: 60%;">
+                <div style="width: 120px; text-align: left; align-items: start;">
+                    <label for="isAdmin">Is Admin:</label>
+                </div>
+                <input type="checkbox" id="isAdmin" name="isAdmin" value="true">
+            </div>
+
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+</body>
+
+</html>

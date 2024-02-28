@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="/style/styleWithoutScroll.css">
+    <style>
+        table {
+            width: 90%;
+            max-height: 500px;
+            overflow-y: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+
+        button{
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/"><img src="/images/logo.png" height="30px" alt=""></a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/search">SEARCH BY VIN</a></li>
+            <li><a href="/gallery">GALLERY</a></li>
+            <% if (userIsLoggedIn) { %>
+                <li style="margin-left: auto; margin-right: 5px;"><a href="/profile"><%= userIsLoggedIn.email %></a></li>
+            <% } else { %>
+                <li style="margin-left: auto; background-color: #ba0505; margin-right: 15px;"><a href="/login">LOGIN</a></li>
+            <% } %>
+        </ul>
+    </header>
+    
+    <main style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h1>Admin Page - User Management</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Admin Status</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Deleted At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.email %></td>
+                        <td><%= user.username %></td>
+                        <td><%= user.isAdmin ? 'Admin' : 'User' %></td>
+                        <td><%= user.createdAt %></td>
+                        <td><%= user.updatedAt %></td>
+                        <td><%= user.deletedAt %></td>
+                        <td>
+                            <form action="/admin/edit/<%= user._id %>" method="get">
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form action="/admin/delete/<%= user._id %>" method="post" onsubmit="return confirm('Delete this user?')">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    
+        <form action="/admin/add" method="get">
+            <button type="submit">Add User</button>
+        </form>
+    </main>
+</body>
+
+</html>
